@@ -1,11 +1,17 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+	// "github.com/jinzhu/gorm"
+)
+
+// "gorm.io/driver/mysql"
+// "gorm.io/gorm"
 
 type DeliverList struct {
-	gorm.Model
-	Weight int `gorm:"type:int(4);not null"`
-	Uid    int `gorm:"type:int(4);not null"`
-	Price  int `gorm:"type:int(4);not null"`
-	// CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;default:CURRENT_TIMESTAMP` // ;<-:create" json:"created_at,omitempty"
+	ID        uint `gorm:"primarykey"`
+	CreatedAt time.Time
+	Uid       int `gorm:"type:int(4);not null"`
+	Weight    int `gorm:"type:int(4);not null"`
+	Price     int `gorm:"type:int(4);not null"`
 }

@@ -1,15 +1,16 @@
 package util
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
 )
 
-func RandomId(n int) int {
+func RandomId() int {
 	min := 1000
 	max := 2000
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().Unix())
 	id := rand.Intn(max-min) + min
 	return id
 }
@@ -18,10 +19,10 @@ func probOf(weight int) float64 {
 	return 1 / float64(weight)
 }
 
-func RandomWeight(f float64) int {
+func RandomWeight() int {
 	min := 1
 	max := 100
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().Unix())
 
 	val := rand.Float64()
 	total_prob := 0.0
@@ -44,4 +45,8 @@ func RandomWeight(f float64) int {
 func Throw4Add5(f float64) int {
 	// 四舍五入函数
 	return int(math.Floor(f + 0.5))
+}
+
+func ClearScreen() {
+	fmt.Print("\033[H\033[2J")
 }
