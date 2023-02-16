@@ -10,22 +10,22 @@ import (
 func RandomId() int {
 	min := 1000
 	max := 2000
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 	id := rand.Intn(max-min) + min
 	return id
 }
 
-func probOf(weight int) float64 {
-	return 1 / float64(weight)
+func probOf(weight int) float32 {
+	return 1 / float32(weight)
 }
 
 func RandomWeight() int {
 	min := 1
 	max := 100
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 
-	val := rand.Float64()
-	total_prob := 0.0
+	val := rand.Float32()
+	total_prob := float32(0.0)
 	for i := min; i <= max; i++ {
 		total_prob += probOf(i)
 	}

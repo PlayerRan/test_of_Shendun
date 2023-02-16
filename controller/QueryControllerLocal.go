@@ -41,11 +41,11 @@ func QueryLists(uid int, DB *gorm.DB) {
 
 func SumRow(db *gorm.DB, uid int) int {
 	rows, err := db.Table("deliver_lists").Select(" sum(price) AS total").Where("uid=?", uid).Rows()
+	defer rows.Close()
 	if err != nil {
 		fmt.Println("报错: ", err)
 		//return 0, err
 	}
-	defer rows.Close()
 	total := 0
 	if rows.Next() {
 

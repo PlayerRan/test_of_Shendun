@@ -9,9 +9,9 @@ import (
 // "gorm.io/gorm"
 
 type DeliverList struct {
-	ID        uint `gorm:"primarykey"`
-	CreatedAt time.Time
-	Uid       int `gorm:"type:int(4);not null"`
-	Weight    int `gorm:"type:int(4);not null"`
-	Price     int `gorm:"type:int(4);not null"`
+	ID      uint      `gorm:"primarykey;not null"`
+	Created time.Time `gorm:"datatime(0);not null"`
+	Uid     int       `gorm:"type:int(4);not null"`
+	Weight  int       `gorm:"type:int(4);not null"`
+	Price   int       `gorm:"type:int(4);not null"`
 }

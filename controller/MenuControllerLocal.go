@@ -2,7 +2,9 @@ package controller
 
 import (
 	"fmt"
+	"go_deliver/model"
 	"go_deliver/util"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -18,15 +20,33 @@ func Button1(db *gorm.DB) {
 	//初始化数据库
 	db.Exec("DELETE FROM deliver_lists")
 	db.Exec("DELETE FROM sqlite_sequence WHERE name = 'deliver_lists'")
+	// 设置订单数量
+	list_length := 1000000
 
-	// 设置订单区间
-	list_begin := 0
-	list_last := 10000
-	for i := list_begin; i < list_last; i++ {
-		MakeListLocal()
+	tx := db.Begin()
+
+	for i := 1; i <= list_length; i++ {
+		w := util.RandomWeight()
+		//生成随机id和重量，并生成订单
+		uid := util.RandomId()
+		// w := int(math.Ceil(weight))
+		p := CalPrice2(w)
+		newDeliverList := model.DeliverList{
+			ID:      uint(i),
+			Created: time.Now(),
+			Uid:     uid,
+			Weight:  w,
+			Price:   p,
+		}
+		tx.Create(&newDeliverList)
+		// err := tx.Create(&newDeliverList).Error
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	tx.Rollback()
+		// }
 	}
 
-	util.ClearScreen()
+	tx.Commit()
 	fmt.Println("订单已生成！")
 	fmt.Println("请继续选择需要执行的操作")
 }

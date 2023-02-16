@@ -14,8 +14,6 @@ func main() {
 
 	//程序启动时调用数据库状态并保持数据库关闭状态
 	db := common.InitDB()
-	defer db.Close()
-
 	fmt.Printf("欢迎来到订单系统!")
 	fmt.Println("请问您想执行以下何种操作？")
 	var f int
@@ -39,6 +37,7 @@ func main() {
 			}
 		} else if f == 3 {
 			// controller.DeleteAll(db)
+			defer db.Close()
 			db.Exec("DELETE FROM deliver_lists")
 			db.Exec("DELETE FROM sqlite_sequence WHERE name = 'deliver_lists'")
 			return
